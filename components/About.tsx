@@ -43,15 +43,15 @@ const About: React.FC = () => {
             <h3 className="text-xs tracking-[0.4em] uppercase text-neutral-400 mb-6 font-medium">Core Strengths 核心特質</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="space-y-3">
-                <h4 className="text-neutral-900 font-medium">溝通協調</h4>
+                <h4 className="text-neutral-900 font-medium">▲溝通協調</h4>
                 <p className="text-sm text-neutral-500 leading-relaxed">擅長與不同專業廠商與業主溝通，具備獨立完成專案經驗，能有效媒合跨領域需求。</p>
               </div>
               <div className="space-y-3">
-                <h4 className="text-neutral-900 font-medium">資訊轉譯</h4>
+                <h4 className="text-neutral-900 font-medium">▲資訊轉譯</h4>
                 <p className="text-sm text-neutral-500 leading-relaxed">善於將複雜的建築技術規範與使用者需求，轉譯為清晰的結構化資訊與設計圖說。</p>
               </div>
               <div className="space-y-3">
-                <h4 className="text-neutral-900 font-medium">穩定產出</h4>
+                <h4 className="text-neutral-900 font-medium">▲穩定產出</h4>
                 <p className="text-sm text-neutral-500 leading-relaxed">具備追求效益與樂於嘗試的特質，能在多工環境下維持高度精確且穩定的工作產出。</p>
               </div>
             </div>
