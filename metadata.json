@@ -1,0 +1,7 @@
+{
+  "name": "Minimalist Architect Portfolio",
+  "description": "A high-end, minimalist architectural portfolio featuring project galleries, design philosophies, and an AI-powered architectural assistant.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
