@@ -30,48 +30,57 @@ const App: React.FC = () => {
       case 'home':
         return (
           <div className="animate-in fade-in duration-1000">
-            {/* 1. 首頁標題區 - 移除 ml-20，回歸左側對齊 */}
-            <section className="mb-20 mt-12 md:mt-0">
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-light serif mb-16 leading-tight tracking-[0.05em] text-neutral-900">
-                Architecture Portfolio <span className="text-xl md:text-2xl font-extralight text-neutral-500 ml-2">2014~2026</span>
-                <br /> 
-                <span className="not-italic text-neutral-600 block mt-4 text-3xl md:text-4xltracking-[0.2em]">
-                  莊淯婷 <span className="not-italic text-2xl md:text-3xl tracking-[0.2em] ml-6 font-light text-neutral-400">
-                    Tina Chong
-                  </span>
-                </span>
+            {/* 1. 頂部標題區 - 與 About 同步 */}
+            <div className="mb-12 mt-12 space-y-2">
+              <h1 className="text-4xl md:text-5xl font-light serif tracking-[0.1em] text-neutral-900">
+                Portfolio <span className="text-xl font-light text-neutral-400 ml-2 italic">作品集</span>
               </h1>
+              
+              <div className="pt-2">
+                <h2 className="text-2xl md:text-3xl font-normal tracking-[0.15em] text-neutral-800">
+                  莊淯婷 <span className="text-xl md:text-2xl font-light serif italic ml-2 text-neutral-500">Tina Chong</span>
+                </h2>
+                <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-400 mt-2">
+                  Architecture Portfolio 2014—2026
+                </p>
+              </div>
+            </div>
 
-              {/* 2. 文案區 - 解放寬度，水平延伸 */}
-              <div className="space-y-12">
-                <div className="relative">
-                  <p className="text-xl md:text-2xl lg:text-3xl font-light leading-snug text-neutral-800 serif italic border-l-2 border-neutral-200 pl-8 py-2">
-                    "Space should be more than a cold vessel; it is an extension of life itself."
-                  </p>
-                </div>
-                <div className="pl-8">
-                  <p className="text-base md:text-lg lg:text-xl text-neutral-500 font-light leading-relaxed tracking-[0.12em] w-full max-w-none">
+            {/* 2. 設計哲學區 - 保持與 About 一致的 7:5 呼吸感 */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start mb-20">
+              <div className="lg:col-span-7 space-y-6">
+                <p className="text-xl text-neutral-800 font-light leading-relaxed serif italic border-l-2 border-neutral-200 pl-8">
+                  "Space should be more than a cold vessel; it is an extension of life itself."
+                </p>
+                <div className="text-xl text-neutral-500 font-light leading-relaxed pl-8">
+                  <p>
                     空間不應只是冰冷的容器，而是生活的延伸。透過重新定義室內外的界面，讓建築成為連結自然與心靈的橋樑，創造有溫度的日常風景。
                   </p>
                 </div>
               </div>
-            </section>
+              <div className="lg:col-span-5 hidden lg:block"></div>
+            </div>
 
-            {/* 3. 專案預覽區 - 同樣保持左對齊，鋪滿寬度 */}
-            <div className="w-full mt-24">
+            {/* 3. 精選作品區 - 橫向四欄展示 */}
+            <section className="pt-12 border-t border-neutral-100">
               <div className="flex justify-between items-end mb-10">
-                <h2 className="text-xs tracking-[0.4em] uppercase text-neutral-400">Selected Works / 精選作品</h2>
-              </div>
-              <ProjectGrid onProjectClick={navigateToProject} limit={2} />
-              <div className="mt-16">
+                <div className="space-y-1">
+                  <h3 className="text-[16px] tracking-[0.4em] uppercase text-neutral-400 font-medium">Selected Works</h3>
+                  <p className="text-[11px] text-neutral-300 tracking-[0.1em]">精選作品</p>
+                </div>
                 <button 
                   onClick={() => setView('projects')}
-                  className="text-[10px] tracking-[0.4em] uppercase border-b border-black pb-2 hover:text-neutral-400 hover:border-neutral-400 transition-all font-light"
+                  className="text-[10px] tracking-[0.3em] uppercase border-b border-neutral-200 pb-1 hover:text-black hover:border-black transition-all font-light"
                 >
-                  Explore All / 查看所有專案
+                  View All
                 </button>
               </div>
-            </div>
+
+              {/* 這裡 limit={4}，並確保 ProjectGrid.tsx 內部已改為 lg:grid-cols-4 */}
+              <div className="w-full overflow-hidden">
+                <ProjectGrid onProjectClick={navigateToProject} limit={4} />
+              </div>
+            </section>
           </div>
         );
 
@@ -81,7 +90,7 @@ const App: React.FC = () => {
       case 'projects':
         return (
           <div className="animate-in fade-in duration-700">
-            <h1 className="text-5xl font-light serif mb-16 border-b border-neutral-100 pb-8">工作專案</h1>
+            <h1 className="text-5xl font-light serif mb-16 border-b border-neutral-100 pb-8">工作專案集</h1>
             <ProjectGrid onProjectClick={navigateToProject} />
           </div>
         );
@@ -143,14 +152,13 @@ const App: React.FC = () => {
       />
 
       <main className="flex-1 px-8 py-12 md:px-16 md:py-24 md:ml-64 transition-all duration-300">
-        {/* max-w-7xl 確保在大螢幕上有足夠寬度展開文字 */}
         <div className="max-w-7xl mx-auto w-full">
           {renderContent()}
         </div>
       </main>
 
       <footer className="md:ml-64 p-8 text-center text-[10px] text-neutral-300 tracking-[0.3em] uppercase border-t border-neutral-50">
-        © 2024 ARCHI | TINA CHONG. Portfolio
+        © 2026 ARCHI | TINA CHONG. Portfolio
       </footer>
     </div>
   );
