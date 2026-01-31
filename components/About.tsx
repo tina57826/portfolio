@@ -13,7 +13,7 @@ const About: React.FC = () => {
           </p>
           <div className="space-y-4 text-neutral-500 font-light leading-relaxed">
             <p>
-              我是 TINA CHONG，一位致力於探索空間本質的建築設計師。在過往的設計實踐中，我持續關注建築與環境的和諧共生，並嘗試透過數位工具與傳統工藝的結合，創造出具有當代精神的感官空間。
+              我是 TINA CHONG。我認為建築師的任務是重構人與自然的界面。我的設計實踐始於對基地細微變化的觀察，透過對材料的純粹運用，讓空間回歸居住的本質，創造出能與使用者產生情感共鳴的日常場景。
             </p>
             <p>
               核心哲學源於對「少即是多」的堅持，以及對環境敏感度的深刻理解。我相信好的設計不應喧賓奪主，而應成為生活的背景，讓光影、空氣與人的活動成為空間的主角。
@@ -23,8 +23,8 @@ const About: React.FC = () => {
           <div className="pt-8">
             <h3 className="text-xs tracking-[0.4em] uppercase text-neutral-400 mb-6">學歷教育 Education</h3>
             <ul className="space-y-4 text-sm font-light">
-              <li>國立成功大學 - 建築研究所 碩士</li>
-              <li>國立成功大學 - 建築學系 學士</li>
+              <li>國立台灣大學 - 建築與城鄉研究所 碩士</li>
+              <li>逢甲大學 - 建築學系 學士</li>
             </ul>
           </div>
         </div>

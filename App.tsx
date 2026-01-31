@@ -7,6 +7,7 @@ import ProjectGrid from './components/ProjectGrid';
 import ProjectDetail from './components/ProjectDetail';
 import About from './components/About';
 import Contact from './components/Contact';
+import AIAssistant from './components/AIAssistant';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('home');
@@ -21,27 +22,44 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     switch (view) {
-      case 'home':
+    case 'home':
         return (
-          <div className="animate-in fade-in duration-700">
-            <section className="mb-20">
-              <h1 className="text-6xl md:text-8xl font-light serif mb-8 leading-tight">
-                構造空間 <br /> 
-                <span className="italic text-neutral-400">思維本質</span>
+          <div className="animate-in fade-in duration-1000">
+            <section className="mb-24 mt-12 md:mt-0">
+              {/* 精選作品標題：縮小尺寸，增加字距 tracking-[0.1em] */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light serif mb-10 leading-tight tracking-[0.05em] text-neutral-900">
+                Selected Works <span className="text-xl md:text-2xl font-extralight text-neutral-500 ml-2">精選作品</span>
+                <br /> 
+                <span className="italic text-neutral-400 md:ml-20 block mt-3 text-3xl md:text-3xl tracking-normal">
+                  Chong Yu Ting <span className="not-italic text-2xl md:text-3xl tracking-widest ml-6 font-light text-neutral-400">
+    莊淯婷
+  </span>
+</span>
               </h1>
-              <p className="max-w-xl text-lg text-neutral-600 leading-relaxed font-light">
-                透過純粹的材料語言與精確的光影控制，我們致力於創造能夠觸動心靈的永恆空間。
-                在這裡，建築不只是結構，更是與自然、光影、以及人的對話。
-              </p>
+
+              {/* 文案區：使用更細膩的字體設定 */}
+              <div className="max-w-xl md:ml-20 space-y-8">
+                <p className="text-lg md:text-xl font-light leading-relaxed text-neutral-700 serif italic border-l border-neutral-200 pl-6">
+                  "Space should be more than a cold vessel; <br className="hidden md:block" />
+                  it is an extension of life itself."
+                </p>
+                <p className="text-[15px] md:text-base text-neutral-500 font-light leading-relaxed tracking-wide">
+                  空間不應只是冰冷的容器，而是生活的延伸。透過重新定義室內外的界面，讓建築成為連結自然與心靈的橋樑，創造有溫度的日常風景。
+                </p>
+              </div>
             </section>
-            <ProjectGrid onProjectClick={navigateToProject} limit={2} />
-            <div className="mt-12">
-              <button 
-                onClick={() => setView('projects')}
-                className="text-sm tracking-[0.2em] uppercase border-b border-black pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-all"
-              >
-                查看所有專案
-              </button>
+
+            {/* 專案預覽區 */}
+            <div className="md:ml-20">
+              <ProjectGrid onProjectClick={navigateToProject} limit={2} />
+              <div className="mt-16">
+                <button 
+                  onClick={() => setView('projects')}
+                  className="text-[10px] tracking-[0.4em] uppercase border-b border-black pb-2 hover:text-neutral-400 hover:border-neutral-400 transition-all font-light"
+                >
+                  Explore All / 查看所有專案
+                </button>
+              </div>
             </div>
           </div>
         );
@@ -157,6 +175,9 @@ const App: React.FC = () => {
           {renderContent()}
         </div>
       </main>
+
+      {/* Persistent AI Assistant Toggle */}
+      <AIAssistant />
 
       {/* Footer (Minimal) */}
       <footer className="md:ml-64 p-8 text-center text-xs text-neutral-400 tracking-widest uppercase border-t border-neutral-100">
