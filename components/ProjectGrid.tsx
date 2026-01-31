@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Project } from '../types';
 import { PROJECTS } from '../constants';
@@ -12,26 +11,30 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ onProjectClick, limit }) => {
   const displayProjects = limit ? PROJECTS.slice(0, limit) : PROJECTS;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
-      {displayProjects.map((project, index) => (
+    /* 關鍵：改為 md:grid-cols-4，gap 稍微調小一點點 (gap-x-8) */
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+      {displayProjects.map((project) => (
         <div 
           key={project.id} 
-          className={`group cursor-pointer ${index % 2 !== 0 ? 'md:mt-24' : ''}`}
+          className="group cursor-pointer" 
           onClick={() => onProjectClick(project)}
         >
-          <div className="overflow-hidden bg-neutral-100 aspect-[4/5] mb-6">
+          {/* 保持 4:3 比例 */}
+          <div className="overflow-hidden bg-neutral-100 aspect-[4/3] mb-4">
             <img 
               src={project.imageUrl} 
               alt={project.title} 
-              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
             />
           </div>
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="text-2xl font-light serif mb-1">{project.title}</h3>
-              <p className="text-xs tracking-widest uppercase text-neutral-400 font-medium">{project.category}</p>
+          
+          <div className="space-y-1">
+            {/* 標題字級再縮小一點 (text-base)，以配合小圖比例 */}
+            <h3 className="text-base font-light serif text-neutral-800 leading-tight">{project.title}</h3>
+            <div className="flex justify-between items-center">
+              <p className="text-[9px] tracking-[0.2em] uppercase text-neutral-400 font-medium">{project.category}</p>
+              <span className="text-[9px] font-light text-neutral-300 italic">{project.year}</span>
             </div>
-            <span className="text-xs font-light text-neutral-300 italic">{project.year}</span>
           </div>
         </div>
       ))}
