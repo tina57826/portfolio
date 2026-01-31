@@ -3,18 +3,31 @@ import React from 'react';
 const About: React.FC = () => {
   return (
     <div className="animate-in fade-in duration-700 pb-20 max-w-7xl mx-auto px-6">
-      {/* 頂部標題 */}
-      <h1 className="text-4xl md:text-5xl font-light serif mb-16 tracking-[0.1em] text-neutral-900 mt-12">
-        About <span className="text-xl font-light text-neutral-400 ml-4">關於我</span>
-      </h1>
+    {/* 頂部標題區 */}
+      <div className="mb-12 mt-12 space-y-2">
+        <h1 className="text-4xl md:text-5xl font-light serif tracking-[0.1em] text-neutral-900">
+          About <span className="text-xl font-light text-neutral-400 ml-2 italic">關於我</span>
+        </h1>
+        
+        {/* 姓名區塊 - 無底線簡潔版 */}
+        <div className="pt-2">
+          <h2 className="text-2xl md:text-3xl font-normal tracking-[0.15em] text-neutral-800">
+            莊淯婷 <span className="text-xl md:text-2xl font-light serif italic ml-2 text-neutral-500">Tina Chong</span>
+          </h2>
+          {/* 可選：職稱小標 */}
+          <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-400 mt-2">
+            Architecture Designer
+          </p>
+        </div>
+      </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
         
-        {/* 左側：文字內容區 */}
-        <div className="lg:col-span-7 space-y-16">
+        {/* 左側：文字內容區 - 將整體垂直間距縮小 */}
+        <div className="lg:col-span-7 space-y-10">
           
           {/* 1. 設計哲學 */}
-          <section className="space-y-8">
+          <section className="space-y-6">
             <p className="text-xl text-neutral-800 font-light leading-relaxed serif italic border-l-2 border-neutral-200 pl-8">
               「建築是需求者與環境和諧共榮下的產物。藉由當代建築語彙找出機能與感知間的平衡，讓每一件作品都能在土地上自然生長。」
             </p>
@@ -25,9 +38,9 @@ const About: React.FC = () => {
             </div>
           </section>
 
-          {/* 2. 專業核心特質 - 結構化排版 */}
-          <section className="pt-12 border-t border-neutral-100">
-            <h3 className="text-xs tracking-[0.4em] uppercase text-neutral-400 mb-8 font-medium">Core Strengths 核心特質</h3>
+          {/* 2. 專業核心特質 - 縮短上邊距 pt-12 -> pt-8 */}
+          <section className="pt-8 border-t border-neutral-100">
+            <h3 className="text-xs tracking-[0.4em] uppercase text-neutral-400 mb-6 font-medium">Core Strengths 核心特質</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="space-y-3">
                 <h4 className="text-neutral-900 font-medium">溝通協調</h4>
@@ -44,15 +57,14 @@ const About: React.FC = () => {
             </div>
           </section>
 
-         {/* 3. 實務經驗 */}
-          <section className="pt-12 border-t border-neutral-100 space-y-6">
+          {/* 3. 實務經驗 - 縮短上邊距 pt-12 -> pt-8 */}
+          <section className="pt-8 border-t border-neutral-100 space-y-6">
             <h3 className="text-xs tracking-[0.4em] uppercase text-neutral-400 font-medium">Professional Experience 實務經驗</h3>
-            <div className="text-neutral-600 font-light leading-relaxed space-y-6">
+            <div className="text-neutral-600 font-light leading-relaxed space-y-4">
               <p>
                 具備兩年建築師事務所實務經驗，專攻公共工程。在校舍與變電所專案中，主責 Revit 建模與圖說整合，具備從基本設計、都審至建照申請的全流程經驗。
               </p>
               
-              {/* 專業工具區塊 */}
               <div className="bg-neutral-50 p-6 rounded-sm border-l-2 border-neutral-200">
                 <h4 className="text-sm text-neutral-900 font-medium mb-4">專業工具 Professional Tools</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -65,7 +77,7 @@ const About: React.FC = () => {
                   <div className="space-y-1">
                     <span className="text-[12px] uppercase tracking-widest text-neutral-800 block">[排版與渲染]</span>
                     <p className="text-sm text-neutral-800 leading-relaxed">
-                      Lumion, Twinmotion, Enscape, Adobe(Photoshop/Illustrator/InDesign), CorelDraw
+                      Lumion, Twinmotion, Enscape, Adobe (Ps/Ai/Id), CorelDraw
                     </p>
                   </div>
                 </div>
@@ -73,10 +85,10 @@ const About: React.FC = () => {
             </div>
           </section>
 
-          {/* 4. 學歷教育 (縮短間距版) */}
-          <section className="pt-12 border-t border-neutral-100">
-            <h3 className="text-xs tracking-[0.4em] uppercase text-neutral-400 mb-6 font-medium">Education 學歷教育</h3>
-            <ul className="space-y-4">
+          {/* 4. 學歷教育 - 縮短上邊距 pt-12 -> pt-8 */}
+          <section className="pt-8 border-t border-neutral-100">
+            <h3 className="text-xs tracking-[0.4em] uppercase text-neutral-400 mb-4 font-medium">Education 學歷教育</h3>
+            <ul className="space-y-3">
               <li className="flex justify-between items-baseline border-b border-neutral-50 pb-3">
                 <span className="text-base tracking-wide text-neutral-800">國立台灣大學 - 建築與城鄉研究所</span>
                 <span className="text-sm text-neutral-300 italic">Master</span>
