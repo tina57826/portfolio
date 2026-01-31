@@ -1,6 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
-import { PROJECTS } from './constants';
+import React, { useState } from 'react';
 import { Project, ViewState } from './types';
 import Sidebar from './components/Sidebar';
 import ProjectGrid from './components/ProjectGrid';
@@ -19,37 +17,51 @@ const App: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
+  const renderPlaceholder = (title: string, message: string = "內容正在整理中，敬請期待。") => (
+    <div className="animate-in fade-in duration-700 h-[60vh] flex flex-col justify-center">
+      <h1 className="text-5xl font-light serif mb-8">{title}</h1>
+      <div className="w-12 h-px bg-neutral-200 mb-8"></div>
+      <p className="text-neutral-400 tracking-widest uppercase text-xs">{message}</p>
+    </div>
+  );
+
   const renderContent = () => {
     switch (view) {
-    case 'home':
+      case 'home':
         return (
           <div className="animate-in fade-in duration-1000">
-            <section className="mb-24 mt-12 md:mt-0">
-              {/* 精選作品標題：縮小尺寸，增加字距 tracking-[0.1em] */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light serif mb-10 leading-tight tracking-[0.05em] text-neutral-900">
-                Selected Works <span className="text-xl md:text-2xl font-extralight text-neutral-500 ml-2">精選作品</span>
+            {/* 1. 首頁標題區 - 移除 ml-20，回歸左側對齊 */}
+            <section className="mb-20 mt-12 md:mt-0">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-light serif mb-16 leading-tight tracking-[0.05em] text-neutral-900">
+                Architecture Portfolio <span className="text-xl md:text-2xl font-extralight text-neutral-500 ml-2">2014~2026</span>
                 <br /> 
-                <span className="italic text-neutral-400 md:ml-20 block mt-3 text-3xl md:text-3xl tracking-normal">
-                  Chong Yu Ting <span className="not-italic text-2xl md:text-3xl tracking-widest ml-6 font-light text-neutral-400">
-    莊淯婷
-  </span>
-</span>
+                <span className="not-italic text-neutral-600 block mt-4 text-3xl md:text-4xltracking-[0.2em]">
+                  莊淯婷 <span className="not-italic text-2xl md:text-3xl tracking-[0.2em] ml-6 font-light text-neutral-400">
+                    Tina Chong
+                  </span>
+                </span>
               </h1>
 
-              {/* 文案區：使用更細膩的字體設定 */}
-              <div className="max-w-xl md:ml-20 space-y-8">
-                <p className="text-lg md:text-xl font-light leading-relaxed text-neutral-700 serif italic border-l border-neutral-200 pl-6">
-                  "Space should be more than a cold vessel; <br className="hidden md:block" />
-                  it is an extension of life itself."
-                </p>
-                <p className="text-[15px] md:text-base text-neutral-500 font-light leading-relaxed tracking-wide">
-                  空間不應只是冰冷的容器，而是生活的延伸。透過重新定義室內外的界面，讓建築成為連結自然與心靈的橋樑，創造有溫度的日常風景。
-                </p>
+              {/* 2. 文案區 - 解放寬度，水平延伸 */}
+              <div className="space-y-12">
+                <div className="relative">
+                  <p className="text-xl md:text-2xl lg:text-3xl font-light leading-snug text-neutral-800 serif italic border-l-2 border-neutral-200 pl-8 py-2">
+                    "Space should be more than a cold vessel; it is an extension of life itself."
+                  </p>
+                </div>
+                <div className="pl-8">
+                  <p className="text-base md:text-lg lg:text-xl text-neutral-500 font-light leading-relaxed tracking-[0.12em] w-full max-w-none">
+                    空間不應只是冰冷的容器，而是生活的延伸。透過重新定義室內外的界面，讓建築成為連結自然與心靈的橋樑，創造有溫度的日常風景。
+                  </p>
+                </div>
               </div>
             </section>
 
-            {/* 專案預覽區 */}
-            <div className="md:ml-20">
+            {/* 3. 專案預覽區 - 同樣保持左對齊，鋪滿寬度 */}
+            <div className="w-full mt-24">
+              <div className="flex justify-between items-end mb-10">
+                <h2 className="text-xs tracking-[0.4em] uppercase text-neutral-400">Selected Works / 精選作品</h2>
+              </div>
               <ProjectGrid onProjectClick={navigateToProject} limit={2} />
               <div className="mt-16">
                 <button 
@@ -62,105 +74,67 @@ const App: React.FC = () => {
             </div>
           </div>
         );
+
       case 'about':
         return <About />;
+      
       case 'projects':
         return (
           <div className="animate-in fade-in duration-700">
-            <h1 className="text-6xl font-light serif mb-16">工作專案</h1>
+            <h1 className="text-5xl font-light serif mb-16 border-b border-neutral-100 pb-8">工作專案</h1>
             <ProjectGrid onProjectClick={navigateToProject} />
           </div>
         );
+
       case 'student':
         return (
           <div className="animate-in fade-in duration-700">
-            <h1 className="text-6xl font-light serif mb-16">學生作品</h1>
-            <p className="text-neutral-500 font-light mb-12">這裡展示了我在學期間的設計探索與學術專案。</p>
+            <h1 className="text-5xl font-light serif mb-16 border-b border-neutral-100 pb-8">學生作品</h1>
+            <p className="text-neutral-500 font-light mb-12">展示了我在學期間的設計探索與學術專案。</p>
             <ProjectGrid onProjectClick={navigateToProject} />
           </div>
         );
+
       case 'research':
         return (
           <div className="animate-in fade-in duration-700">
-            <h1 className="text-6xl font-light serif mb-16">論文研究</h1>
+            <h1 className="text-5xl font-light serif mb-16 border-b border-neutral-100 pb-8">論文研究</h1>
             <div className="space-y-12">
               <article className="border-b border-neutral-100 pb-12">
                 <span className="text-xs tracking-[0.3em] uppercase text-neutral-400 block mb-4">Master Thesis | 2024</span>
                 <h3 className="text-2xl font-light serif mb-4">城市縫隙：後疫情時代的公共空間重構</h3>
-                <p className="text-neutral-600 font-light leading-relaxed max-w-2xl mb-6">
-                  探討高密度都市環境中，如何透過微型介入策略改善居民的心理健康與社交距離...
+                <p className="text-neutral-600 font-light leading-relaxed max-w-2xl">
+                  探討高密度都市環境中，如何透過微型介入策略改善居民的心理健康與社交距離。
                 </p>
-                <button className="text-xs border-b border-black pb-1 tracking-widest uppercase">閱讀摘要</button>
-              </article>
-              <article className="border-b border-neutral-100 pb-12">
-                <span className="text-xs tracking-[0.3em] uppercase text-neutral-400 block mb-4">Journal Paper | 2023</span>
-                <h3 className="text-2xl font-light serif mb-4">生成式人工智慧在初期建築平面配置之應用</h3>
-                <p className="text-neutral-600 font-light leading-relaxed max-w-2xl mb-6">
-                  研究機器學習模型如何協助建築師在概念階段優化動線與採光...
-                </p>
-                <button className="text-xs border-b border-black pb-1 tracking-widest uppercase">閱讀全文</button>
               </article>
             </div>
           </div>
         );
+
       case 'awards':
-        return (
-          <div className="animate-in fade-in duration-700">
-            <h1 className="text-6xl font-light serif mb-16">競賽獎項</h1>
-            <div className="space-y-8">
-              {[
-                { year: '2023', name: '台灣建築獎 TADA - 住宅類金獎', project: '光影之境' },
-                { year: '2022', name: 'iF Design Award - 概念設計獎', project: '未來棲居' },
-                { year: '2021', name: '金點設計獎 Golden Pin - 年度最佳設計', project: '森之隱居' },
-              ].map((award, i) => (
-                <div key={i} className="flex justify-between items-baseline border-b border-neutral-100 pb-6">
-                  <div>
-                    <h3 className="text-xl font-light">{award.name}</h3>
-                    <p className="text-xs text-neutral-400 uppercase tracking-widest mt-1">專案：{award.project}</p>
-                  </div>
-                  <span className="serif italic text-neutral-300">{award.year}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
+        return renderPlaceholder('競賽獎項');
+      
       case 'certs':
-        return (
-          <div className="animate-in fade-in duration-700">
-            <h1 className="text-6xl font-light serif mb-16">專業證照</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                '中華民國註冊建築師 (RA)',
-                'LEED AP BD+C 綠建築認證專員',
-                'PMP 國際專案管理師',
-                'Autodesk Certified Professional: Revit',
-              ].map((cert, i) => (
-                <div key={i} className="p-8 bg-neutral-50 flex items-center gap-6">
-                  <div className="w-12 h-12 bg-black flex items-center justify-center text-white">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <span className="text-lg font-light">{cert}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
+        return renderPlaceholder('專業證照');
+
       case 'contact':
         return <Contact />;
+
       case 'project-detail':
         return selectedProject ? (
-          <ProjectDetail project={selectedProject} onBack={() => setView('projects')} />
+          <ProjectDetail 
+            project={selectedProject} 
+            onBack={() => setView('projects')} 
+          />
         ) : null;
+
       default:
-        return <div>404 Not Found</div>;
+        return null;
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-[#fafafa]">
-      {/* Sidebar for desktop, Top bar for mobile */}
       <Sidebar 
         currentView={view} 
         setView={(v) => { setView(v); setIsMobileMenuOpen(false); }} 
@@ -168,16 +142,15 @@ const App: React.FC = () => {
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 px-6 py-12 md:px-20 md:py-20 md:ml-64 transition-all duration-300">
-        <div className="max-w-6xl mx-auto">
+      <main className="flex-1 px-8 py-12 md:px-16 md:py-24 md:ml-64 transition-all duration-300">
+        {/* max-w-7xl 確保在大螢幕上有足夠寬度展開文字 */}
+        <div className="max-w-7xl mx-auto w-full">
           {renderContent()}
         </div>
       </main>
 
-      {/* Footer (Minimal) */}
-      <footer className="md:ml-64 p-8 text-center text-xs text-neutral-400 tracking-widest uppercase border-t border-neutral-100">
-        © 2024 ARCHI | TINA CHONG Portfolio. All Rights Reserved.
+      <footer className="md:ml-64 p-8 text-center text-[10px] text-neutral-300 tracking-[0.3em] uppercase border-t border-neutral-50">
+        © 2024 ARCHI | TINA CHONG. Portfolio
       </footer>
     </div>
   );
