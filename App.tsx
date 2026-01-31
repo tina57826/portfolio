@@ -30,45 +30,45 @@ const App: React.FC = () => {
       case 'home':
         return (
           <div className="animate-in fade-in duration-1000">
-            {/* 1. 頂部標題區 */}
-            <div className="mb-12 mt-12 space-y-2">
-              <h1 className="text-4xl md:text-5xl font-light serif tracking-[0.1em] text-neutral-900">
-                Portfolio <span className="text-xl font-light text-neutral-400 ml-2 italic">作品集</span>
-              </h1>
-              <div className="pt-2">
-                <h2 className="text-2xl md:text-3xl font-normal tracking-[0.15em] text-neutral-800">
-                  莊淯婷 <span className="text-xl md:text-2xl font-light serif italic ml-2 text-neutral-500">Tina Chong</span>
-                </h2>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-400 mt-2">
-                  Architecture Portfolio 2014—2026
-                </p>
-              </div>
-            </div>
-
-            {/* 2. 設計哲學區 */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start mb-20">
-              <div className="lg:col-span-7 space-y-6">
-                <p className="text-xl text-neutral-800 font-light leading-relaxed serif italic border-l-2 border-neutral-200 pl-8">
-                  "Space should be more than a cold vessel; it is an extension of life itself."
-                </p>
-                <div className="text-xl text-neutral-500 font-light leading-relaxed pl-8">
-                  <p>
-                    空間不應只是冰冷的容器，而是生活的延伸。透過重新定義室內外的界面，讓建築成為連結自然與心靈的橋樑，創造有溫度的日常風景。
+            {/* 1. 頂部區塊：包含標題（左）與設計哲學（右） */}
+            <div className="flex flex-col lg:flex-row justify-between items-start mb-16 mt-12 gap-8">
+              {/* 左側：姓名標題區 */}
+              <div className="space-y-2">
+                <h1 className="text-4xl md:text-5xl font-light serif tracking-[0.1em] text-neutral-900">
+                  Portfolio <span className="text-xl font-light text-neutral-400 ml-2 italic">作品集</span>
+                </h1>
+                <div className="pt-2">
+                  <h2 className="text-2xl md:text-3xl font-normal tracking-[0.15em] text-neutral-800">
+                    莊淯婷 <span className="text-xl md:text-2xl font-light serif italic ml-2 text-neutral-500">Tina Chong</span>
+                  </h2>
+                  <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-400 mt-2">
+                    Architecture Portfolio 2014—2026
                   </p>
                 </div>
               </div>
-              <div className="lg:col-span-5 hidden lg:block"></div>
+
+              {/* 右側：右上角縮小版設計哲學 */}
+              <div className="max-w-xs text-right space-y-4 lg:mt-4">
+                <p className="text-sm md:text-base text-neutral-800 font-light leading-relaxed serif italic border-r border-neutral-200 pr-4">
+                  "Space should be more than a cold vessel; it is an extension of life itself."
+                </p>
+                <div className="text-[11px] text-neutral-400 font-light leading-relaxed pr-4">
+                  <p>
+                    空間不應只是冰冷的容器，而是生活的延伸。<br />
+                    透過重新定義室內外的界面，創造有溫度的日常風景。
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* 3. 精選作品區 - 放大版四張小圖 + 查看所有專案按鈕 */}
-            <section className="pt-12 border-t border-neutral-100">
-              <div className="flex justify-between items-end mb-12">
+            {/* 2. 精選作品區 - 圖片會因為上方區塊併排而自動上移 */}
+            <section className="pt-8 border-t border-neutral-100">
+              <div className="flex justify-between items-end mb-10">
                 <div className="space-y-1">
                   <h3 className="text-[16px] tracking-[0.4em] uppercase text-neutral-400 font-medium">Selected Works</h3>
                   <p className="text-[11px] text-neutral-300 tracking-[0.1em]">精選作品</p>
                 </div>
                 
-                {/* 重新找回來的按鈕 */}
                 <button 
                   onClick={() => setView('projects')}
                   className="text-[11px] tracking-[0.3em] uppercase border-b border-neutral-300 pb-1 hover:text-black hover:border-black transition-all font-light flex items-center gap-2"
@@ -77,7 +77,6 @@ const App: React.FC = () => {
                 </button>
               </div>
 
-              {/* 使用 w-full 讓圖片在右側空間內撐到最大 */}
               <div className="w-full">
                 <ProjectGrid onProjectClick={navigateToProject} limit={4} />
               </div>
