@@ -3,10 +3,10 @@ import { Project } from './types';
 export const PROJECTS: Project[] = [
   {
     id: 'p1',
-    title: '新營P/S 69 kV GIS 新建土建統包工程',
+    title: '新營P/S 69 kV GIS\n新建土建統包工程',
     category: '變電所',
     year: '2025-2026',
-    location: '台南, 台灣',
+    location: '台南新營, 台灣',
     // 補齊職責標籤
     roles: [' 獨立專案', '立面外殼設計', '3D模型製作', '渲染動畫', '服務建議書製作', '基本設計', '法規檢討', '都市設計審議', '建造執造申請', '細部設計'],
     description: '此專案為國家級電力基礎設施，重點在於 GIS 設備房的空間機能與土建結構的精確配合。在統包模式下，需協調多方專業分工，確保高度安全標準與工程進度。',
@@ -20,7 +20,7 @@ export const PROJECTS: Project[] = [
     'https://images.unsplash.com/photo-1503387762-592dea58ef23?auto=format&fit=crop&q=80&w=1200'  // 
   ],
     stats: [
-      { label: '基地面積', value: '46432.72 m²' },
+      { label: '基地面積', value: '46,432.72 m²' },
       { label: '工程預算', value: '4億5000萬' },
       { label: '樓層高度', value: '2層' },
       { label: '結構形式', value: '鋼筋混凝土、鋼骨構造、預鑄外牆板' }
@@ -28,21 +28,26 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'p2',
-    title: '森之隱居',
-    category: '休閒別墅',
-    year: '2022',
-    location: '宜蘭, 台灣',
+    title: '六甲S/Y 新建土建統包工程',
+    category: '變電所',
+    year: '2025',
+    location: '台南六甲, 台灣',
     // 補齊職責標籤
-    roles: ['建築設計', '細部構造設計', '材料選型'],
+    roles: ['協助專案', '3D環境模型製作'],
     description: '坐落於森林邊緣，此專案強調建築與自然的無縫連接。大面積的落地窗與木質平台將景觀引入室內，創造出靜謐的沉思空間。',
-    imageUrl: 'https://images.unsplash.com/photo-1449156001131-afb1446c3268?auto=format&fit=crop&q=80&w=1200',
+    imageUrl: 'https://i.postimg.cc/Pq22T0jn/001_1_photo_orig.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800'
-    ],
+    'https://i.postimg.cc/Pq22T0jn/001_1_photo_orig.jpg', // 
+    'https://i.postimg.cc/1z9vxsLm/001_10_photo_orig.jpg', // 
+    'https://i.postimg.cc/Dz2xVnty/001_5_photo_orig.jpg', // 
+    'https://i.postimg.cc/yNVLqswV/001n_1_photo_orig.jpg', // 
+    'https://i.postimg.cc/yNvvs2HB/001n_2_photo_orig.jpg', // 
+  ],
     stats: [
-      { label: '基地面積', value: '1200 m²' },
-      { label: '建蔽率', value: '15%' },
-      { label: '材料', value: '雪松木, 鋼構' }
+      { label: '基地面積', value: '19,987 m²' },
+      { label: '工程預算', value: '27.9億' },
+      { label: '樓層高度', value: '2層' },
+      { label: '結構形式', value: '鋼筋混凝土、鋼骨構造、預鑄外牆板' }
     ]
   },
   {
