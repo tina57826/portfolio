@@ -1,145 +1,157 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Project } from '../types';
-import { GoogleGenAI } from "@google/genai";
 
 interface ProjectDetailProps {
   project: Project;
   onBack: () => void;
 }
 
-const getArchitecturalInsight = async (title: string, description: string): Promise<string> => {
-  try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: `作為一名專業建築評論家，請針對以下建築專案提供一段簡短（約 150 字）且具深度的設計洞察，使用繁體中文。
-      專案標題：${title}
-      專案描述：${description}
-      請從空間邏輯、材料性、光影或人文關懷等角度進行評論。口吻應優雅、專業且具啟發性。`,
-    });
-    return response.text || "無法生成洞察。";
-  } catch (error) {
-    console.error("AI Insight Error:", error);
-    return "暫時無法連接 AI 建築分析。";
-  }
-};
-
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
-  const [insight, setInsight] = useState<string>('');
-  const [loadingInsight, setLoadingInsight] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
+  // 自動置頂
   useEffect(() => {
-    const fetchInsight = async () => {
-      setLoadingInsight(true);
-      const text = await getArchitecturalInsight(project.title, project.description);
-      setInsight(text);
-      setLoadingInsight(false);
-    };
-    fetchInsight();
+    window.scrollTo(0, 0);
   }, [project]);
 
+  if (!project) return null;
+
+  // 合併主圖與所有圖庫照片供上方輪播使用
+  const allImages = [project.imageUrl, ...(project.gallery || [])];
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActiveImageIndex((prev) => (prev + 1) % allImages.length);
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActiveImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
+
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
+      {/* 1. 返回按鈕 */}
       <button 
         onClick={onBack}
-        className="mb-12 text-xs tracking-widest uppercase text-neutral-400 hover:text-black flex items-center gap-2 group transition-colors"
+        className="mb-12 group flex items-center text-[10px] tracking-[0.3em] uppercase text-neutral-400 hover:text-black transition-colors"
       >
-        <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
-        </svg>
-        返回列表 Back to List
+        <span className="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+        Back to Projects
       </button>
 
+      {/* 2. 標題區 */}
       <header className="mb-16">
-        <h1 className="text-5xl md:text-7xl font-light serif mb-6 text-neutral-900">{project.title}</h1>
-        <div className="flex flex-wrap gap-8 text-[10px] tracking-[0.3em] uppercase text-neutral-400 font-medium">
-          <span className="flex items-center gap-2">
-            <span className="w-1 h-1 bg-neutral-300 rounded-full" />
-            {project.category}
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-1 h-1 bg-neutral-300 rounded-full" />
-            {project.location}
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-1 h-1 bg-neutral-300 rounded-full" />
-            {project.year}
-          </span>
-        </div>
+        <p className="text-[10px] tracking-[0.4em] uppercase text-neutral-400 mb-4 font-medium">
+          {project.category} / {project.year}
+        </p>
+        <h1 className="text-4xl md:text-6xl font-light serif text-neutral-900 leading-tight">
+          {project.title}
+        </h1>
       </header>
 
-      <div className="mb-20 overflow-hidden bg-neutral-100">
+      {/* 3. 上方主圖：可點擊切換功能 */}
+      <div className="group relative aspect-[21/9] w-full overflow-hidden bg-neutral-100 mb-24 cursor-pointer">
         <img 
-          src={project.imageUrl} 
-          alt={project.title} 
-          className="w-full h-auto aspect-video object-cover hover:scale-105 transition-transform duration-[2s]"
+          src={allImages[activeImageIndex]} 
+          alt={project.title}
+          className="w-full h-full object-cover transition-all duration-700 ease-in-out"
         />
+        
+        {/* 左右切換按鈕 */}
+        <div className="absolute inset-0 flex items-center justify-between px-6 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button 
+            onClick={prevImage}
+            className="w-10 h-10 flex items-center justify-center bg-white/90 rounded-full shadow-sm hover:bg-black hover:text-white transition-all"
+          >
+            ←
+          </button>
+          <button 
+            onClick={nextImage}
+            className="w-10 h-10 flex items-center justify-center bg-white/90 rounded-full shadow-sm hover:bg-black hover:text-white transition-all"
+          >
+            →
+          </button>
+        </div>
+
+        {/* 頁碼指示器 */}
+        <div className="absolute bottom-6 right-8 text-[9px] tracking-[0.3em] text-white bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full">
+          {activeImageIndex + 1} / {allImages.length}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
-        <div className="md:col-span-2 space-y-12">
+      {/* 4. 內容資訊 */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-32">
+        <div className="lg:col-span-7 space-y-20">
           <section>
-            <h2 className="text-[10px] tracking-[0.4em] uppercase mb-8 border-b border-neutral-100 pb-2 text-neutral-400 font-medium">
-              設計概念 Concept
-            </h2>
-            <p className="text-lg leading-relaxed text-neutral-700 font-light whitespace-pre-wrap serif italic">
+            <h2 className="text-[11px] tracking-[0.4em] uppercase text-neutral-300 mb-8 font-medium border-b border-neutral-100 pb-3">關於專案 About</h2>
+            <p className="text-lg font-light text-neutral-600 leading-relaxed whitespace-pre-line">
               {project.description}
             </p>
           </section>
-          
-          {/* AI Insight Section */}
-          <div className="p-10 bg-white border border-neutral-100 shadow-sm relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-neutral-50 -mr-16 -mt-16 rotate-45 pointer-events-none" />
-            <h4 className="text-[10px] tracking-[0.5em] uppercase text-neutral-400 mb-6 flex items-center gap-3">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neutral-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-neutral-600"></span>
-              </span>
-              AI 建築分析 ARCHITECTURAL INSIGHT
-            </h4>
-            {loadingInsight ? (
-              <div className="flex space-x-2 py-4">
-                <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full animate-bounce" />
-                <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full animate-bounce [animation-delay:0.2s]" />
-                <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full animate-bounce [animation-delay:0.4s]" />
-              </div>
-            ) : (
-              <p className="text-neutral-600 text-[15px] leading-relaxed serif font-light">
-                {insight}
-              </p>
-            )}
-          </div>
+
+          <section>
+            <h2 className="text-[11px] tracking-[0.4em] uppercase text-neutral-300 mb-8 font-medium border-b border-neutral-100 pb-3">我的角色 Role</h2>
+            <div className="flex flex-wrap gap-3">
+              {(project.roles || []).map((role, index) => (
+                <span 
+                  key={index}
+                  className="px-6 py-2 text-[10px] tracking-[0.2em] bg-white border border-neutral-200 text-neutral-500 rounded-full hover:border-black hover:text-black transition-all cursor-default"
+                >
+                  {role}
+                </span>
+              ))}
+            </div>
+          </section>
         </div>
 
-        <div className="space-y-12">
-          <section>
-            <h2 className="text-[10px] tracking-[0.4em] uppercase mb-8 border-b border-neutral-100 pb-2 text-neutral-400 font-medium">
-              專案細節 Data
-            </h2>
-            <dl className="space-y-6">
-              {project.stats.map((stat, idx) => (
-                <div key={idx} className="flex flex-col gap-1 border-b border-neutral-50 pb-4">
-                  <dt className="text-[9px] text-neutral-300 uppercase tracking-[0.2em] font-medium">{stat.label}</dt>
-                  <dd className="text-sm font-light text-neutral-800">{stat.value}</dd>
+        <div className="lg:col-span-5">
+          <div className="bg-neutral-50 p-10 md:p-14 sticky top-12 border border-neutral-100">
+            <h2 className="text-[10px] tracking-[0.5em] uppercase text-neutral-400 mb-12 text-center font-bold">Project Stats</h2>
+            <div className="space-y-8">
+              {(project.stats || []).map((stat, index) => (
+                <div key={index} className="flex flex-col border-b border-neutral-200/60 pb-5 last:border-0">
+                  <span className="text-[9px] tracking-[0.2em] uppercase text-neutral-400 mb-2">{stat.label}</span>
+                  <span className="text-[15px] font-normal text-neutral-800 tracking-wide">{stat.value}</span>
                 </div>
               ))}
-            </dl>
-          </section>
+              <div className="flex flex-col pt-4">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-neutral-400 mb-2">地點 Location</span>
+                <span className="text-[15px] font-normal text-neutral-800 italic">{project.location}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {project.gallery.length > 0 && (
-        <section>
-          <h2 className="text-[10px] tracking-[0.4em] uppercase mb-12 text-center text-neutral-300 font-medium">
-            Gallery / 影像紀錄
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {project.gallery.map((img, idx) => (
-              <div key={idx} className="overflow-hidden bg-neutral-100">
+      {/* 5. 下方圖庫：左右橫向滑動 */}
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="border-t border-neutral-100 pt-24 mb-32">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-16 gap-6">
+            <div className="space-y-2">
+              <h2 className="text-[11px] tracking-[0.5em] uppercase text-neutral-400">影像紀錄</h2>
+              <h3 className="text-3xl font-light serif text-neutral-800 italic">Gallery / Records</h3>
+            </div>
+            <p className="text-[10px] tracking-[0.2em] text-neutral-300 animate-pulse">
+              SHIFT + SCROLL TO EXPLORE →
+            </p>
+          </div>
+          
+          {/* 橫向捲動容器 */}
+          <div 
+            ref={scrollRef}
+            className="flex gap-8 overflow-x-auto pb-10 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-neutral-200 scrollbar-track-transparent cursor-grab active:cursor-grabbing"
+          >
+            {project.gallery.map((url, index) => (
+              <div 
+                key={index} 
+                className="flex-none w-[80vw] md:w-[50vw] lg:w-[40vw] snap-center aspect-[3/2] overflow-hidden bg-neutral-100 group shadow-sm"
+              >
                 <img 
-                  src={img} 
-                  className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100" 
-                  alt={`Gallery ${idx}`} 
+                  src={url} 
+                  alt={`${project.title} gallery ${index}`} 
+                  className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105" 
                 />
               </div>
             ))}
