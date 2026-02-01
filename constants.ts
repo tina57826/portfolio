@@ -10,14 +10,14 @@ export const PROJECTS: Project[] = [
     // 補齊職責標籤
     roles: ['土建統包', '施工管理', '設計圖說核對'],
     description: '此專案為國家級電力基礎設施，重點在於 GIS 設備房的空間機能與土建結構的精確配合。在統包模式下，需協調多方專業分工，確保高度安全標準與工程進度。',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200',
+    imageUrl: 'https://i.postimg.cc/X7hYrvVY/project01_1.jpg',
     gallery: [
-    'https://images.unsplash.com/photo-1590846083693-f23fded91a0c?auto=format&fit=crop&q=80&w=1200', // 結構外觀
-    'https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1200', // 施工近景
-    'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1200', // 建築細節
-    'https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&q=80&w=1200', // GIS 設備感圖片
-    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200', // 現代建築立面
-    'https://images.unsplash.com/photo-1503387762-592dea58ef23?auto=format&fit=crop&q=80&w=1200'  // 俯瞰遠景
+    'https://i.postimg.cc/X7hYrvVY/project01_1.jpg0', // 
+    'https://i.postimg.cc/28JS15z8/project01_2.jpg', // 
+    'https://i.postimg.cc/c4jLvJs1/project01_3.jpg', // 
+    'https://i.postimg.cc/nc5hXLHF/project01_4.jpg', // 
+    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200', // 
+    'https://images.unsplash.com/photo-1503387762-592dea58ef23?auto=format&fit=crop&q=80&w=1200'  // 
   ],
     stats: [
       { label: '基地面積', value: '46432.72 m²' },
