@@ -1,4 +1,3 @@
-
 import { Project } from './types';
 
 export const PROJECTS: Project[] = [
@@ -8,7 +7,9 @@ export const PROJECTS: Project[] = [
     category: '變電所',
     year: '2025-2026',
     location: '台南, 台灣',
-    description: '這是一個探索自然光線與混凝土結構互動的私人住宅專案。通過精確的切口與天井設計，室內空間隨時間推移展現出豐富的光影表情。',
+    // 補齊職責標籤
+    roles: ['土建統包', '施工管理', '設計圖說核對'],
+    description: '此專案為國家級電力基礎設施，重點在於 GIS 設備房的空間機能與土建結構的精確配合。在統包模式下，需協調多方專業分工，確保高度安全標準與工程進度。',
     imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200',
     gallery: [
       'https://images.unsplash.com/photo-1600607687940-c52af096999c?auto=format&fit=crop&q=80&w=800',
@@ -27,6 +28,8 @@ export const PROJECTS: Project[] = [
     category: '休閒別墅',
     year: '2022',
     location: '宜蘭, 台灣',
+    // 補齊職責標籤
+    roles: ['建築設計', '細部構造設計', '材料選型'],
     description: '坐落於森林邊緣，此專案強調建築與自然的無縫連接。大面積的落地窗與木質平台將景觀引入室內，創造出靜謐的沉思空間。',
     imageUrl: 'https://images.unsplash.com/photo-1449156001131-afb1446c3268?auto=format&fit=crop&q=80&w=1200',
     gallery: [
@@ -44,6 +47,8 @@ export const PROJECTS: Project[] = [
     category: '商業空間',
     year: '2024',
     location: '台中, 台灣',
+    // 補齊職責標籤
+    roles: ['立面外殼設計', '室內動線規劃'],
     description: '重新定義城市狹窄基地的商辦空間。透過垂直的格柵與交錯的露台，為室內提供自然通風與遮陽，同時形成獨特的城市立面。',
     imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200',
     gallery: [],

@@ -35,11 +35,11 @@ const App: React.FC = () => {
 
               {/* 優化後的設計哲學區 */}
               <div className="max-w-md text-right space-y-6">
-                <p className="text-[10px] md:text-[14px] text-neutral-400 font-light leading-snug serif italic border-r-2 border-neutral-400 pr-6">
+                <p className="text-[14px] md:text-[16px] text-neutral-400 font-light leading-snug serif italic border-r-2 border-neutral-400 pr-6">
                   Architecture should be more than a cold vessel; <br className="hidden md:block" />
                   it is an extension of life itself."
                 </p>
-                <p className="text-[10px] md:text-[13px] text-neutral-400 pr-6 leading-loose tracking-[0.05em] font-light">
+                <p className="text-[14px] md:text-[16px] text-neutral-400 pr-6 leading-loose tracking-[0.05em] font-light">
                   建築不應只是冰冷的容器，而是生活的延伸。
                 </p>
               </div>

@@ -1,4 +1,3 @@
-
 export interface Project {
   id: string;
   title: string;
@@ -8,6 +7,8 @@ export interface Project {
   description: string;
   imageUrl: string;
   gallery: string[];
+  // 新增：職責標籤
+  roles: string[]; 
   stats: {
     label: string;
     value: string;
